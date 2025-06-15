@@ -15,9 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-
                 targetElement.scrollIntoView({ behavior: 'smooth' });
-
 
                 if (mobileMenu.classList.contains('active')) {
                     hamburger.classList.remove('active');
@@ -54,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileMenu.classList.toggle('active');
     });
 
-    // 5. Intersection Observer for Scroll Animations
+    // 5. Intersection Observer for Scroll Animations (existing elements)
+    // Removed #hero p from initial animation selectors as it's now typing
     const animatedElements = document.querySelectorAll('.anim-slide-up, .anim-fade-in, .anim-scale-up, .anim-slide-left, .anim-slide-right, .anim-fade-in-up');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -67,10 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animatedElements.forEach(element => observer.observe(element));
     
-    // Initial hero animation
+    // Initial hero H1 and Button animation
     setTimeout(() => {
         document.querySelector('#hero h1')?.classList.add('animate');
-        document.querySelector('#hero p')?.classList.add('animate');
         document.querySelector('#hero .btn')?.classList.add('animate');
     }, 100);
 
@@ -129,4 +127,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', updateActiveNavLink);
     updateActiveNavLink(); // Initial check on load
+
+    // === NEW: Reusable Typing Animation Function ===
+    function setupTypingAnimation(elementId, typingDelay = 30) {
+        const element = document.getElementById(elementId);
+
+        if (element) {
+            const originalText = element.textContent;
+            element.textContent = ''; // Clear text initially
+            
+            // Set opacity to 1 directly on the element's style.
+            // This ensures it remains visible even after .typing-text class is removed.
+            element.style.opacity = '1'; 
+
+            let typeIndex = 0;
+
+            const typeEffect = () => {
+                if (typeIndex < originalText.length) {
+                    element.textContent += originalText.charAt(typeIndex);
+                    // Add typing-text class only while typing for the caret
+                    if (!element.classList.contains('typing-text')) {
+                        element.classList.add('typing-text');
+                    }
+                    typeIndex++;
+                    setTimeout(typeEffect, typingDelay);
+                } else {
+                    element.classList.remove('typing-text'); // Remove cursor when typing is done
+                }
+            };
+
+            const typingObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        typeEffect(); // Start typing when element is visible
+                        observer.unobserve(entry.target); // Stop observing after animation starts
+                    }
+                });
+            }, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+
+            typingObserver.observe(element);
+        }
+    }
+
+    // Apply typing animation to both desired paragraphs
+    setupTypingAnimation('hero-subtitle-text', 50); // Slightly faster for hero
+    setupTypingAnimation('about-subtitle-text', 30); // Default speed for about
+    // === END NEW TYPING ANIMATION ===
+
 });
