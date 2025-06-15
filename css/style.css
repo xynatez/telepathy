@@ -178,7 +178,7 @@ p.section-subtitle {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('../img/Hoodie/img-20241109-wa0015.jpg') no-repeat center center/cover; /* Ganti dengan gambar hero yang paling menarik */
+    background: url('../img/landing.webp') no-repeat center center/cover; /* Ganti dengan gambar hero yang paling menarik */
     position: relative;
     color: var(--white);
 }

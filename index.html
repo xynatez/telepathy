@@ -13,6 +13,39 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
     
+    <!-- Inline CSS for new buttons and responsiveness -->
+    <style>
+        /* CSS untuk grup tombol */
+        .cta-section .button-group {
+            display: flex;
+            flex-wrap: wrap; /* Tombol akan pindah baris jika layar kecil */
+            justify-content: center;
+            gap: 15px; /* Jarak antar tombol */
+            margin-top: 30px; /* Jarak dari paragraf di atasnya */
+        }
+
+        /* Pastikan tombol memiliki lebar minimum dan padding yang konsisten */
+        .cta-section .button-group .btn {
+            flex-shrink: 0; /* Mencegah tombol menyusut terlalu banyak */
+            min-width: 180px; /* Lebar minimum untuk setiap tombol */
+            padding: 12px 25px; /* Padding untuk tombol */
+            text-align: center; /* Pastikan teks di tengah */
+        }
+
+        /* Responsiveness untuk layar kecil */
+        @media (max-width: 600px) {
+            .cta-section .button-group {
+                flex-direction: column; /* Tombol jadi vertikal di layar kecil */
+                align-items: center; /* Pusatkan tombol secara horizontal */
+            }
+
+            .cta-section .button-group .btn {
+                width: 80%; /* Lebar tombol lebih besar di layar kecil */
+                max-width: 300px; /* Batasi lebar maksimum */
+            }
+        }
+    </style>
+
     <!-- SEO & Favicon -->
     <meta name="description" content="Telepathy Lab. adalah mitra konveksi terpercaya Anda. Kami mengubah ide menjadi produk fashion berkualitas premium dengan sablon DTF dan Plastisol terbaik.">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -78,62 +111,139 @@
                 <div class="portfolio-grid">
                     <!-- DTF Projects -->
                     <div class="portfolio-item anim-scale-up" data-category="dtf">
-                        <img src="img/DTF/img_2100.png" alt="DTF Project 1">
+                        <img src="img/DTF/IMG_2100.webp" alt="DTF Project 1 - Kaos Proyek DTF">
                         <div class="portfolio-info">
                             <h3>Kaos Proyek DTF</h3>
                             <p>Detail presisi untuk desain kompleks.</p>
                         </div>
                     </div>
                     <div class="portfolio-item anim-scale-up" data-category="dtf">
-                        <img src="img/DTF/img_7098.png" alt="DTF Project 2">
+                        <img src="img/DTF/IMG_7098.webp" alt="DTF Project 2 - Logo Apparel DTF">
                         <div class="portfolio-info">
                            <h3>Logo Apparel DTF</h3>
                            <p>Warna cerah dan tajam.</p>
                         </div>
                     </div>
+                    <div class="portfolio-item anim-scale-up" data-category="dtf">
+                        <img src="img/DTF/IMG_7135.webp" alt="DTF Project 3 - Kaos DTF Desain Grafis">
+                        <div class="portfolio-info">
+                           <h3>Kaos DTF Desain Grafis</h3>
+                           <p>Cetakan detail dan warna hidup.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item anim-scale-up" data-category="dtf">
+                        <img src="img/DTF/IMG_7142.webp" alt="DTF Project 4 - T-Shirt Custom DTF">
+                        <div class="portfolio-info">
+                           <h3>T-Shirt Custom DTF</h3>
+                           <p>Fleksibel untuk berbagai desain.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item anim-scale-up" data-category="dtf">
+                        <img src="img/DTF/IMG_7144.webp" alt="DTF Project 5 - Sablon DTF Modern">
+                        <div class="portfolio-info">
+                           <h3>Sablon DTF Modern</h3>
+                           <p>Hasil akhir halus dan awet.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item anim-scale-up" data-category="dtf">
+                        <img src="img/DTF/IMG_7150.webp" alt="DTF Project 6 - Kaos DTF untuk Event">
+                        <div class="portfolio-info">
+                           <h3>Kaos DTF untuk Event</h3>
+                           <p>Cocok untuk acara dan promosi.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item anim-scale-up" data-category="dtf">
+                        <img src="img/DTF/IMG_7152.webp" alt="DTF Project 7 - Kaos Promosi DTF">
+                        <div class="portfolio-info">
+                           <h3>Kaos Promosi DTF</h3>
+                           <p>Ideal untuk branding cerah.</p>
+                        </div>
+                    </div>
                     
                     <!-- Plastisol Projects -->
                     <div class="portfolio-item anim-scale-up" data-category="plastisol">
-                        <img src="img/Plastisol/img_2082.png" alt="Plastisol Project 1">
+                        <img src="img/Plastisol/IMG_2082.webp" alt="Plastisol Project 1 - Kaos Distro Plastisol">
                          <div class="portfolio-info">
                            <h3>Kaos Distro Plastisol</h3>
                            <p>Sablon tebal, awet, dan premium.</p>
                         </div>
                     </div>
                     <div class="portfolio-item anim-scale-up" data-category="plastisol">
-                        <img src="img/Plastisol/img_5024.png" alt="Plastisol Project 2">
+                        <img src="img/Plastisol/IMG_5024.webp" alt="Plastisol Project 2 - Desain Minimalis Plastisol">
                          <div class="portfolio-info">
-                           <h3>Desain Minimalis</h3>
+                           <h3>Desain Minimalis Plastisol</h3>
                            <p>Hasil akhir solid dan tidak mudah retak.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item anim-scale-up" data-category="plastisol">
+                        <img src="img/Plastisol/IMG_7114.webp" alt="Plastisol Project 3 - Kaos Plastisol Custom">
+                         <div class="portfolio-info">
+                           <h3>Kaos Plastisol Custom</h3>
+                           <p>Warna pekat dan tahan lama.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item anim-scale-up" data-category="plastisol">
+                        <img src="img/Plastisol/IMG_7117.webp" alt="Plastisol Project 4 - Sablon Plastisol Detail">
+                         <div class="portfolio-info">
+                           <h3>Sablon Plastisol Detail</h3>
+                           <p>Daya tahan tinggi untuk penggunaan sehari-hari.</p>
                         </div>
                     </div>
                     
                     <!-- Hoodie Projects -->
                     <div class="portfolio-item anim-scale-up" data-category="hoodie">
-                        <img src="img/Hoodie/img-20241109-wa0009.jpg" alt="Hoodie Project 1">
+                        <img src="img/Hoodie/IMG-20241109-WA0009.webp" alt="Hoodie Project 1 - Hoodie Angkatan '24">
                          <div class="portfolio-info">
                            <h3>Hoodie Angkatan '24</h3>
                            <p>Desain eksklusif untuk komunitas.</p>
                         </div>
                     </div>
                     <div class="portfolio-item anim-scale-up" data-category="hoodie">
-                        <img src="img/Hoodie/img-20241109-wa0021.jpg" alt="Hoodie Project 3">
+                        <img src="img/Hoodie/IMG-20241109-WA0015.webp" alt="Hoodie Project 2 - Hoodie Custom DTF">
+                        <div class="portfolio-info">
+                            <h3>Hoodie Custom DTF</h3>
+                            <p>Cetak gambar kompleks pada hoodie.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item anim-scale-up" data-category="hoodie">
+                        <img src="img/Hoodie/IMG-20241109-WA0017.webp" alt="Hoodie Project 3 - Hoodie Brand Lokal">
+                        <div class="portfolio-info">
+                            <h3>Hoodie Brand Lokal</h3>
+                            <p>Kualitas premium untuk merek Anda.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item anim-scale-up" data-category="hoodie">
+                        <img src="img/Hoodie/IMG-20241109-WA0019.webp" alt="Hoodie Project 4 - Hoodie Oversize">
+                        <div class="portfolio-info">
+                            <h3>Hoodie Oversize</h3>
+                            <p>Gaya nyaman dengan sablon berkualitas.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item anim-scale-up" data-category="hoodie">
+                        <img src="img/Hoodie/IMG-20241109-WA0021.webp" alt="Hoodie Project 5 - Backprint Hoodie">
                         <div class="portfolio-info">
                             <h3>Backprint Hoodie</h3>
                             <p>Desain besar dengan finishing halus.</p>
                         </div>
                     </div>
+                    <div class="portfolio-item anim-scale-up" data-category="hoodie">
+                        <img src="img/Hoodie/IMG-20241109-WA0023.webp" alt="Hoodie Project 6 - Hoodie Komunitas">
+                        <div class="portfolio-info">
+                            <h3>Hoodie Komunitas</h3>
+                            <p>Desain seragam untuk identitas kelompok.</p>
+                        </div>
+                    </div>
 
                     <!-- Event & Angkatan Projects -->
                     <div class="portfolio-item anim-scale-up" data-category="event">
-                        <img src="img/Foto_bersama/Kaos_Angkatan/line_290394189065846.jpg" alt="Kaos Angkatan Project">
+                        <img src="img/Foto_bersama/Kaos_Angkatan/line_290394189065846.webp" alt="Kaos Angkatan Project">
                         <div class="portfolio-info">
                             <h3>Kaos Angkatan Alumni</h3>
                             <p>Momen istimewa dalam desain tak terlupakan.</p>
                         </div>
                     </div>
                     <div class="portfolio-item anim-scale-up" data-category="event">
-                        <img src="img/Foto_bersama/Kaos_Event/img-20240922-wa0009.jpg" alt="Kaos Event Project">
+                        <img src="img/Foto_bersama/Kaos_Event/IMG-20240922-WA0009.webp" alt="Kaos Event Project">
                         <div class="portfolio-info">
                             <h3>Kaos Event Komunitas</h3>
                             <p>Produksi massal dengan kualitas terjamin.</p>
@@ -149,7 +259,7 @@
                 <h2 class="section-title light-text anim-slide-up">Produk Unggulan Kami</h2>
                 
                 <div class="product-item anim-slide-left">
-                    <div class="product-img-container"><img src="img/DTF/img_7150.png" alt="Tele Shirt Black DTF" class="product-img"></div>
+                    <div class="product-img-container"><img src="img/DTF/IMG_7150.webp" alt="Tele Shirt Black DTF" class="product-img"></div>
                     <div class="product-info">
                         <h3>Tele Shirt: Print DTF</h3>
                         <p>Direct-to-Film (DTF) print menghadirkan detail tak tertandingi dan warna cerah yang tajam, ideal untuk desain rumit. Diciptakan dengan material premium untuk kenyamanan maksimal.</p>
@@ -157,7 +267,7 @@
                 </div>
 
                 <div class="product-item product-item-reverse anim-slide-right">
-                    <div class="product-img-container"><img src="img/Plastisol/img_7114.png" alt="Tele Shirt White Plastisol" class="product-img"></div>
+                    <div class="product-img-container"><img src="img/Plastisol/IMG_7114.webp" alt="Tele Shirt White Plastisol" class="product-img"></div>
                     <div class="product-info">
                         <h3>Tele Shirt: Print Plastisol</h3>
                         <p>Print Plastisol menjamin ketahanan dan kekuatan warna superior. Memberikan hasil akhir solid, tebal, dan sangat awet untuk gaya yang tak lekang oleh waktu.</p>
@@ -165,7 +275,7 @@
                 </div>
 
                 <div class="product-item anim-slide-left">
-                     <div class="product-img-container"><img src="img/Hoodie/img-20241109-wa0023.jpg" alt="Hoodie Telepathy" class="product-img"></div>
+                     <div class="product-img-container"><img src="img/Hoodie/IMG-20241109-WA0023.webp" alt="Hoodie Telepathy" class="product-img"></div>
                     <div class="product-info">
                         <h3>Tele Hoodie</h3>
                         <p>Hoodie berkualitas tinggi dengan pilihan sablon DTF atau Plastisol. Material lembut dan desain stylish menjamin kenyamanan dan kehangatan, sempurna untuk gaya kasual atau branding.</p>
@@ -198,12 +308,16 @@
         </section>
 
 
-        <!-- Booklet/CTA Section -->
+        <!-- Booklet/CTA Section - BAGIAN YANG DIMODIFIKASI -->
         <section id="booklet" class="cta-section dark-bg section-spacing">
             <div class="container text-center anim-fade-in-up">
                 <h2>Lihat Detail Layanan Kami</h2>
-                <p>Unduh booklet informasi kami untuk panduan lengkap mengenai layanan, proses pemesanan, pilihan material, dan contoh proyek terkini.</p>
-                <a href="assets/telepathy-lab-booklet.pdf" download class="btn btn-primary">Unduh Booklet PDF</a>
+                <p>Unduh dokumen informasi kami untuk panduan lengkap mengenai layanan, proses pemesanan, pilihan material, dan contoh proyek terkini.</p>
+                <div class="button-group">
+                    <a href="assets/documents/Pricelist_Regular_CC.pdf" download class="btn btn-primary">Unduh Pricelist</a>
+                    <a href="assets/documents/Size_Chart_Regular.png" download class="btn btn-primary">Lihat Size Chart</a>
+                    <a href="assets/documents/Customwear_Handbook_Tele_Shirt.pdf" download class="btn btn-primary">Unduh Handbook</a>
+                </div>
             </div>
         </section>
 
@@ -216,13 +330,12 @@
                 <div class="contact-wrapper">
                     <div class="contact-info">
                         <h3>Informasi Kontak</h3>
-                        <p><strong>Telepon:</strong> <a href="tel:+6281234567890">+62 812-3456-7890</a></p>
-                        <p><strong>Email:</strong> <a href="mailto:info@telepathylab.com">info@telepathylab.com</a></p>
-                        <p><strong>Alamat:</strong> Jl. Contoh Konveksi No. 123, Kota Kreatif, Indonesia</p>
+                        <p><strong>WhatsApp:</strong> <a href="https://wa.me/6285863809688" target="_blank">+62 858-6380-9688</a></p>
+                        <p><strong>Email:</strong> <a href="mailto:telepathycorporation@gmail.com">telepathycorporation@gmail.com</a></p>
+                        <p><strong>Alamat:</strong> Jl. Paseh-Kamojang No.087, 40384, Bandung, West Java, Indonesia</p>
                         <div class="social-links">
-                            <a href="#" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-                            <a href="#" target="_blank" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
-                            <a href="#" target="_blank" aria-label="Whatsapp"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></a>
+                            <!-- Instagram and Facebook links removed as no specific links were provided -->
+                            <a href="https://wa.me/6285863809688" target="_blank" aria-label="Whatsapp"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></a>
                         </div>
                     </div>
                     <form action="#" method="POST" class="contact-form">
@@ -248,9 +361,6 @@
     <!-- Footer -->
     <footer id="footer" class="dark-bg">
         <div class="container text-center">
-            <a href="#hero" class="footer-logo">
-                <img src="img/telepathy-lab-logo.png" alt="Telepathy Lab Logo Footer" class="logo-img">
-            </a>
             <div class="footer-links">
                 <a href="#about">Tentang</a> |
                 <a href="#portfolio">Portofolio</a> |
@@ -267,6 +377,11 @@
         </svg>
     </a>
 
+    <!-- Main JavaScript file -->
     <script src="js/script.js"></script>
+
+    <!-- No additional JavaScript needed for these buttons specifically,
+         as their functionality is handled by the <a> tag's href/download
+         and CSS handles the responsiveness. -->
 </body>
 </html>
