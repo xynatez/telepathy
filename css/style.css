@@ -137,14 +137,15 @@ p.section-subtitle {
 .nav-links { list-style: none; display: flex; }
 .nav-links li { margin-left: 35px; }
 .nav-links a {
-    color: var(--prussian-blue);
+    color: var(--prussian-blue); /* Default for nav links */
     text-decoration: none;
     font-weight: 500;
     padding-bottom: 5px;
     position: relative;
     transition: color var(--transition-speed);
 }
-#header:not(.sticky) .nav-links a { color: var(--white); }
+/* Warna teks navigasi saat header TIDAK sticky (di hero section) */
+#header:not(.sticky) .nav-links a { color: var(--white); } 
 .nav-links a::after {
     content: '';
     position: absolute;
@@ -163,10 +164,11 @@ p.section-subtitle {
 .hamburger { display: none; cursor: pointer; }
 .hamburger .bar {
     display: block; width: 25px; height: 3px; margin: 5px auto;
-    background-color: var(--prussian-blue);
+    background-color: var(--prussian-blue); /* Default bar color */
     transition: all 0.3s ease-in-out;
 }
-#header:not(.sticky) .hamburger .bar { background-color: var(--white); }
+/* Warna bar hamburger saat header TIDAK sticky (di hero section) */
+#header:not(.sticky) .hamburger .bar { background-color: var(--white); } 
 
 /* ==============================================
    5. Sections
@@ -402,18 +404,47 @@ p.section-subtitle {
 @media (max-width: 768px) {
     .section-spacing { padding: 60px 0; }
     .nav-links {
-        display: none; flex-direction: column; width: 100%;
-        position: absolute; top: 75px; left: 0;
-        background-color: var(--white);
-        padding: 20px 0; box-shadow: var(--box-shadow-strong);
+        display: none; 
+        flex-direction: column; 
+        width: 100%;
+        position: absolute; 
+        top: 75px; /* Sesuaikan dengan tinggi header Anda */
+        left: 0;
+        background-color: var(--white); /* Latar belakang putih untuk menu terbuka */
+        padding: 20px 0; 
+        box-shadow: var(--box-shadow-strong);
+        z-index: 990; /* Pastikan menu di atas konten lain */
     }
-    .nav-links.active { display: flex; }
+    .nav-links.active { 
+        display: flex; 
+        min-height: calc(100vh - 75px); 
+        overflow-y: auto; 
+    }
     .nav-links li { margin: 15px 0; text-align: center; }
-    .nav-links a, #header.sticky .nav-links a { color: var(--prussian-blue); }
+    
+    /* === PERBAIKAN UTAMA DI SINI === */
+    /* Pastikan warna teks navigasi selalu gelap saat menu mobile aktif,
+       dengan !important untuk menimpa aturan warna putih dari hero section */
+    .nav-links.active a { 
+        color: var(--prussian-blue) !important; 
+    }
+    /* Pastikan hover/active state juga konsisten saat menu aktif */
+    .nav-links.active a:hover, 
+    .nav-links.active a.active {
+        color: var(--saffron-gold) !important; /* Gunakan warna aksen saat hover/active */
+    }
+
+
     .hamburger { display: block; }
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Pastikan bar hamburger berwarna gelap saat aktif (menjadi 'X'),
+       agar terlihat di latar belakang menu mobile yang putih */
+    .hamburger.active .bar {
+        background-color: var(--prussian-blue) !important; 
+    }
 }
 
 @media (max-width: 576px) {
