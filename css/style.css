@@ -62,6 +62,18 @@ p.section-subtitle {
     margin: 0 auto 50px;
     text-align: center;
 }
+/* Style for the Hero subtitle text when not typing (so it's visible initially if JS fails or for SEO) */
+#hero-subtitle-text {
+    color: rgba(255, 255, 255, 0.9); /* Original color for hero paragraph */
+    font-size: 1.3rem; 
+    max-width: 600px; 
+    margin: 0 auto 40px;
+    /* REMOVED: opacity: 0; - Now handled by JS on typeEffect start */
+}
+/* Ensure about subtitle is hidden by default before typing starts */
+#about-subtitle-text {
+    /* REMOVED: opacity: 0; - Now handled by JS on typeEffect start */
+}
 .light-text { color: var(--white); }
 
 /* ==============================================
@@ -191,7 +203,8 @@ p.section-subtitle {
 }
 #hero .container { position: relative; z-index: 2; }
 #hero h1 { color: var(--white); text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-#hero p { color: rgba(255, 255, 255, 0.9); font-size: 1.3rem; max-width: 600px; margin: 0 auto 40px; }
+/* The hero subtitle paragraph color and size is now handled by #hero-subtitle-text, no change here */
+
 
 /* --- Portfolio --- */
 .filter-buttons {
@@ -374,15 +387,53 @@ p.section-subtitle {
 /* ==============================================
    7. Animations & Responsive Design
    ============================================== */
+
+/* === NEW: Typing Animation Specific Styles === */
+@keyframes blinkCaret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--slate-gray); } /* Default caret color for light background */
+}
+
+@keyframes blinkCaretHero {
+    from, to { border-color: transparent }
+    50% { border-color: var(--white); } /* White caret for dark background */
+}
+
+.typing-text {
+    white-space: pre-wrap; /* Keeps line breaks and spaces */
+    overflow: hidden; /* Hides text not yet typed */
+    border-right: 2px solid; /* Initial caret. Color will be inherited or specified by ID. */
+    animation: blinkCaret 0.75s step-end infinite;
+    /* REMOVED: opacity: 1 !important; transform: none !important;
+       This is now handled by element.style.opacity in JS for persistence. */
+}
+
+/* For hero section's paragraph, make the caret white and use its own blink animation */
+#hero-subtitle-text.typing-text {
+    border-color: var(--white); /* White caret */
+    animation: blinkCaretHero 0.75s step-end infinite;
+}
+
+/* For about section's paragraph, use default caret color (slate-gray) */
+#about-subtitle-text.typing-text {
+    border-color: var(--slate-gray); /* Gray caret */
+    /* animation: blinkCaret 0.75s step-end infinite; (already default, can be omitted) */
+}
+
+/* Make sure elements that will be typed don't have conflicting initial opacity from general animations */
+/* This is mostly for elements wrapped by .anim- classes, ensures JS has control */
+#hero-subtitle-text,
+#about-subtitle-text {
+    /* Set an initial transition property to ensure smooth transition from initial render if any */
+    transition: opacity 0.3s ease-out; /* Add transition for opacity when JS sets it to 1 */
+}
+
+/* The general anim- classes should still work for containers/other elements */
 .anim-slide-up, .anim-fade-in, .anim-scale-up, .anim-slide-left, .anim-slide-right, .anim-fade-in-up {
     opacity: 0;
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
-.anim-slide-up { transform: translateY(30px); }
-.anim-scale-up { transform: scale(0.95); }
-.anim-slide-left { transform: translateX(-50px); }
-.anim-slide-right { transform: translateX(50px); }
-.anim-fade-in { transform: translateY(20px); }
+/* No need to specify anything for hero subtitle's opacity here, JS will override it */
 
 .animate {
     opacity: 1;
@@ -422,7 +473,6 @@ p.section-subtitle {
     }
     .nav-links li { margin: 15px 0; text-align: center; }
     
-    /* === PERBAIKAN UTAMA DI SINI === */
     /* Pastikan warna teks navigasi selalu gelap saat menu mobile aktif,
        dengan !important untuk menimpa aturan warna putih dari hero section */
     .nav-links.active a { 
