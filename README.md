@@ -1,6 +1,6 @@
 # Telepathy Lab.
 
-Website siap dibuka dengan `index.html`. Semua foto, font, dokumen, CSS, dan JavaScript ada di dalam paket ini.
+Website statis untuk Telepathy Lab. Semua foto, font, dokumen, CSS, dan JavaScript ada di dalam paket ini. Buat preview lokal, buka lewat server HTTP supaya pembaca buku bisa mengambil halaman.
 
 Untuk hosting, unggah seluruh isi paket ke direktori publik pada layanan hosting statis. Pertahankan struktur folder dan huruf besar pada nama file. Website tidak membutuhkan backend atau proses build tambahan.
 
@@ -13,6 +13,7 @@ Source yang bisa diedit:
 - `assets/documents`: Pricelist 2026, Size chart Regular Fit, dan handbook terbaru.
 - `assets/books`: 32 halaman WebP hasil render PDF dan manifest untuk pembaca buku.
 - `assets/fonts`: font lokal beserta lisensinya.
+- `assets/hero`: foto pembuka dalam tiga ukuran layar; foto asli tetap ada di `img` buat galeri.
 
 Formulir menyusun pesan yang bisa dicek sebelum lanjut ke WhatsApp. Nomor kontaknya 085720071185 (`6285720071185` untuk tautan WhatsApp).
 

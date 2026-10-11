@@ -346,6 +346,10 @@
   let filter = 'all';
   let expanded = false;
   const filteredProjects = () => projects.filter((project) => filter === 'all' || project.category === filter);
+  const galleryHeroPreviews = {
+    'img/DTF/IMG_7135.webp': 'wear',
+    'img/DTF/IMG_2100.webp': 'print'
+  };
   function renderGallery() {
     if (!grid) return;
     const matching = filteredProjects();
@@ -364,10 +368,15 @@
       button.setAttribute('aria-label', `Lihat foto ${project.title}`);
       button.setAttribute('aria-haspopup', 'dialog');
       const image = document.createElement('img');
-      image.src = project.src;
-      image.alt = photoAlt(project.src);
       image.loading = 'lazy';
       image.decoding = 'async';
+      const preview = galleryHeroPreviews[project.src];
+      if (preview) {
+        image.sizes = '(min-width: 1440px) 740px, (min-width: 768px) 55vw, 100vw';
+        image.srcset = [480, 960, 1440].map((width) => `assets/hero/${preview}-${width}.webp ${width}w`).join(', ');
+        image.src = `assets/hero/${preview}-960.webp`;
+      } else image.src = project.src;
+      image.alt = photoAlt(project.src);
       const open = document.createElement('span');
       open.className = 'project-open';
       open.textContent = 'Lihat foto';
