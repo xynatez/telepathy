@@ -1,0 +1,201 @@
+/* Ink pull + paper proof: crisp print-studio choreography, fast start, soft settle. */
+/* Adapted from smooth-web-motion/assets/motion.css. --speed tunes every duration. */
+:root {
+  --speed: 1;
+  --motion-micro: 160ms;
+  --motion-ui: 260ms;
+  --motion-reveal: 680ms;
+  --motion-page: 520ms;
+  --motion-exit: 160ms;
+  --duration-fast: calc(var(--motion-micro) * var(--speed));
+  --duration-base: calc(var(--motion-ui) * var(--speed));
+  --duration-reveal: calc(var(--motion-reveal) * var(--speed));
+  --duration-page: calc(var(--motion-page) * var(--speed));
+  --duration-exit: calc(var(--motion-exit) * var(--speed));
+  --duration-ticker: calc(26s * var(--speed));
+  --stagger: calc(60ms * var(--speed));
+  --ease-out-expo: cubic-bezier(.16,1,.3,1);
+  --ease-in-out: cubic-bezier(.65,0,.35,1);
+}
+html { -webkit-text-size-adjust: 100%; }
+.hero-intro { position: relative; }
+.hero-intro::after { content: ""; display: block; width: 7rem; height: 2px; margin-top: var(--space-4); background: var(--print-yellow); transform-origin: left; }
+.hero h1 > .hero-last { color: var(--print-yellow); }
+.hero-word-inner { transform-origin: left bottom; }
+
+.js .motion-ready[data-motion] {
+  --motion-entry-sign: 1;
+  transition: opacity var(--duration-reveal) var(--ease-out-expo), transform var(--duration-reveal) var(--ease-out-expo);
+  transition-delay: var(--motion-delay,0ms);
+}
+.js .motion-ready[data-motion-direction="up"] { --motion-entry-sign: -1; }
+.js .motion-ready[data-motion="heading"] { transition: none; }
+.js .motion-ready[data-motion="heading"] .motion-line > span {
+  transition: opacity var(--duration-reveal) var(--ease-out-expo), transform var(--duration-reveal) var(--ease-out-expo);
+  transition-delay: var(--motion-delay,0ms);
+}
+.js .motion-ready[data-motion="heading"] .motion-line:nth-child(2) > span { transition-delay: calc(var(--motion-delay,0ms) + var(--stagger)); }
+.js .motion-ready[data-motion="heading"] .motion-line > span { transform-origin: left bottom; }
+.js .motion-ready[data-motion="heading"]:not(.is-revealed) .motion-line > span { opacity: 0; transform: translate(calc(8px * var(--motion-entry-sign)),calc(105% * var(--motion-entry-sign))) rotate(calc(.8deg * var(--motion-entry-sign))); }
+.js .motion-ready[data-motion="photo"] { --proof-side: -1; opacity: 1; transform: none; transition: none; }
+.js .project-card:nth-child(even) .motion-ready[data-motion="photo"] { --proof-side: 1; }
+.js .motion-ready[data-motion="photo"]::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: 2;
+  background: var(--paper);
+  border-inline: 1px solid var(--stamp);
+  pointer-events: none;
+  transform: translateX(calc(102% * var(--proof-side) * var(--motion-entry-sign)));
+  transition: transform var(--duration-reveal) var(--ease-out-expo);
+  transition-delay: var(--motion-delay,0ms);
+}
+.js .motion-ready[data-motion="photo"] img {
+  transform: none;
+  transition: transform var(--duration-reveal) var(--ease-out-expo);
+  transition-delay: var(--motion-delay,0ms);
+}
+.js .motion-ready[data-motion="photo"]:not(.is-revealed)::before { transform: translateX(0); }
+.js .motion-ready[data-motion="photo"]:not(.is-revealed) img { transform: translateX(calc(6% * var(--proof-side) * var(--motion-entry-sign))) scale(1.16); }
+.js .motion-ready[data-motion="product"]:not(.is-revealed) { opacity: 0; transform: translateX(calc(12px * var(--motion-entry-sign))); }
+.js .motion-ready[data-motion="text"]:not(.is-revealed) { opacity: 0; }
+.js .motion-ready[data-motion="line"] { transition-duration: var(--duration-page); }
+.js .motion-ready[data-motion="line"]:not(.is-revealed) { opacity: 0; transform: translateX(calc(-8px * var(--motion-entry-sign))); }
+.js .motion-ready[data-motion="contact"] { transition-duration: var(--duration-page); }
+.js .motion-ready[data-motion="contact"]:not(.is-revealed) { opacity: 0; transform: translateY(calc(16px * var(--motion-entry-sign))); }
+.js .motion-ready[data-motion="reader"]:not(.is-revealed) { opacity: 0; transform: translateY(calc(16px * var(--motion-entry-sign))) rotate(calc(-.6deg * var(--motion-entry-sign))); }
+.footer-type-inner { display: block; }
+.js .motion-ready[data-motion="footer"] { opacity: 1; transform: none; transition: none; }
+.js .motion-ready[data-motion="footer"] .footer-type-inner { transition: transform var(--duration-reveal) var(--ease-out-expo); }
+.js .motion-ready[data-motion="footer"]:not(.is-revealed) .footer-type-inner { transform: translateY(calc(105% * var(--motion-entry-sign))); }
+
+/* The hero's masks and proof sheets share one sequence; their containers never move. */
+.js .motion-ready[data-motion="hero"] { opacity: 1; transform: none; transition: none; }
+.js .hero-copy.motion-ready .hero-word-inner,
+.js .hero-copy.motion-ready .hero-intro,
+.js .hero-copy.motion-ready .hero-description,
+.js .hero-art-area.motion-ready .art-photo-inner,
+.js .hero-art-area.motion-ready .art-note,
+.js .hero-art-area.motion-ready .hero-look-controls {
+  transition: opacity var(--duration-reveal) var(--ease-out-expo), transform var(--duration-reveal) var(--ease-out-expo);
+}
+.js .hero-copy.motion-ready .hero-word:nth-child(1) .hero-word-inner { transition-delay: var(--stagger); }
+.js .hero-copy.motion-ready .hero-word:nth-child(2) .hero-word-inner { transition-delay: calc(var(--stagger) * 2); }
+.js .hero-copy.motion-ready .hero-word:nth-child(3) .hero-word-inner { transition-delay: calc(var(--stagger) * 3); }
+.js .hero-copy.motion-ready .hero-description { transition-delay: calc(var(--stagger) * 4); }
+.js .hero-copy.motion-ready .hero-intro::after { transition: transform var(--duration-page) var(--ease-out-expo); transition-delay: calc(var(--stagger) * 3); }
+.js .hero-copy.motion-ready:not(.is-revealed) .hero-intro { opacity: 0; transform: translateY(8px); }
+.js .hero-copy.motion-ready:not(.is-revealed) .hero-intro::after { transform: scaleX(0); }
+.js .hero-copy.motion-ready:not(.is-revealed) .hero-word-inner { opacity: 0; transform: translate(calc(-12px * var(--motion-entry-sign)),calc(110% * var(--motion-entry-sign))); }
+.js .hero-copy.motion-ready:not(.is-revealed) .hero-description { opacity: 0; transform: translateY(calc(12px * var(--motion-entry-sign))); }
+.js .hero-art-area.motion-ready .art-photo-wear .art-photo-inner { transition-delay: calc(var(--stagger) * 2); }
+.js .hero-art-area.motion-ready .art-photo-print .art-photo-inner { transition-delay: calc(var(--stagger) * 3); }
+.js .hero-art-area.motion-ready .art-note { transition-delay: calc(var(--stagger) * 4); }
+.js .hero-art-area.motion-ready .hero-look-controls { transition-delay: calc(var(--stagger) * 5); }
+.js .hero-art-area.motion-ready:not(.is-revealed) .art-photo-inner { opacity: 0; transform: translateY(calc(28px * var(--motion-entry-sign))) rotate(4deg); }
+.js .hero-art-area.motion-ready:not(.is-revealed) .art-note { opacity: 0; transform: translateY(12px) rotate(-4deg); }
+.js .hero-art-area.motion-ready:not(.is-revealed) .hero-look-controls { opacity: 0; transform: translateY(6px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .js.motion-opening .hero-copy .hero-intro { opacity: 0; transform: translateY(8px); }
+  .js.motion-opening .hero-copy .hero-intro::after { transform: scaleX(0); }
+  .js.motion-opening .hero-copy .hero-word-inner { opacity: 0; transform: translate(-12px,110%); }
+  .js.motion-opening .hero-copy .hero-description { opacity: 0; transform: translateY(12px); }
+  .js.motion-opening .hero-art-area .art-photo-inner { opacity: 0; transform: translateY(28px) rotate(4deg); }
+  .js.motion-opening .hero-art-area .art-note { opacity: 0; transform: translateY(12px) rotate(-4deg); }
+  .js.motion-opening .hero-art-area .hero-look-controls { opacity: 0; transform: translateY(6px); }
+}
+
+.js .motion-resetting[data-motion],
+.js .motion-resetting[data-motion] *,
+.js .motion-resetting[data-motion]::before,
+.js .motion-resetting[data-motion] *::after { transition: none !important; }
+.js [data-motion]:focus-within { opacity: 1 !important; transform: none !important; transition: none !important; }
+.js [data-motion]:focus-within .motion-line > span,
+.js [data-motion]:focus-within .footer-type-inner,
+.js [data-motion]:focus-within .hero-word-inner,
+.js [data-motion]:focus-within .hero-intro,
+.js [data-motion]:focus-within .hero-description,
+.js [data-motion]:focus-within .art-photo-inner,
+.js [data-motion]:focus-within .hero-look-controls { opacity: 1 !important; transform: none !important; transition: none !important; }
+.js [data-motion]:focus-within .art-note { opacity: 1 !important; transform: rotate(-4deg) !important; transition: none !important; }
+.js [data-motion]:focus-within .hero-intro::after { transform: scaleX(1); transition: none; }
+.js .motion-ready[data-motion="photo"]:focus-within::before { display: none; }
+.js .motion-ready[data-motion="photo"]:focus-within img,
+.js .motion-ready[data-motion="photo"]:focus-within .project-open { transform: none !important; transition: none; }
+
+/* Individual transforms keep the drift separate from a photo's button feedback. */
+@media (prefers-reduced-motion: no-preference) {
+  .js img[data-drift].drift-ready { scale: 1.08; translate: 0 var(--drift-y,0px); }
+  @supports (animation-timeline: view()) and (animation-range: entry 0% exit 100%) {
+    .js img[data-drift].drift-ready:not(.drift-fallback) {
+      animation: proof-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+}
+@keyframes proof-drift { from { translate: 0 8px; } to { translate: 0 -8px; } }
+.studio-strip.is-running .ticker-track { will-change: transform; }
+.studio-strip:not(.is-running) .ticker-track,
+.studio-strip:focus-within .ticker-track { animation-play-state: paused; will-change: auto; }
+
+.button { transition: transform var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast), color var(--duration-fast), border-color var(--duration-fast); }
+.button svg { transition-duration: var(--duration-fast); }
+.button:focus-visible svg { transform: translateY(3px); }
+.button:active { transform: translateY(1px) scale(.985); }
+.hero-look-controls button:active,
+.filter-list button:active,
+.product-tabs button:active,
+.book-choice:active,
+.reader-controls button:active:not(:disabled),
+.reader-tools button:active:not(:disabled),
+.icon-button:active:not(:disabled) { transform: scale(.985); }
+.contact-direct .direct-arrow { transition: transform var(--duration-base) var(--ease-out-expo); }
+.contact-direct:focus-visible .direct-arrow { transform: translate(3px,-3px); }
+.text-link > span { transition: transform var(--duration-fast) var(--ease-out-expo); }
+.text-link:focus-visible > span { transform: translate(3px,-3px); }
+.product-tabs button { position: relative; }
+.product-tabs button[aria-selected="true"] { border-left-color: transparent; }
+.product-tabs button::before { content: ""; position: absolute; left: -3px; top: 0; bottom: 0; width: 3px; background: var(--print-yellow); transform: scaleY(0); transform-origin: top; transition: transform var(--duration-base) var(--ease-out-expo); }
+.product-tabs button[aria-selected="true"]::before { transform: scaleY(1); }
+.book-choice { position: relative; }
+.book-choice::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--stamp); transform: scaleX(0); transform-origin: left; transition: transform var(--duration-base) var(--ease-out-expo); }
+.book-choice[aria-pressed="true"]::after,
+.book-choice[aria-selected="true"]::after { transform: scaleX(1); }
+.site-nav a:not(.nav-contact) { position: relative; }
+.site-nav a:not(.nav-contact)::after { content: ""; position: absolute; height: 1px; left: 0; right: 0; bottom: .4rem; background: var(--print-yellow); transform: scaleX(0); transform-origin: left; transition: transform var(--duration-base) var(--ease-out-expo); }
+.site-nav a:not(.nav-contact):focus-visible::after,
+.site-nav a:not(.nav-contact)[aria-current="location"]::after { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) {
+  .project-open { transform: translate(var(--peek-x,0px),var(--peek-y,0px)); transition: transform var(--duration-fast) var(--ease-out-expo), background-color var(--duration-fast), color var(--duration-fast); }
+  .js .motion-ready[data-motion="photo"].is-revealed:hover img { transform: scale(1.035); transition-delay: 0ms; }
+  .studio-strip:hover .ticker-track { animation-play-state: paused; will-change: auto; }
+  .contact-direct:hover .direct-arrow { transform: translate(3px,-3px); }
+  .text-link:hover > span { transform: translate(3px,-3px); }
+  .site-nav a:not(.nav-contact):hover::after { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .motion-ready[data-motion="photo"]::before { display: none; }
+  .project-open { transform: none !important; transition: none; }
+  .js .motion-ready[data-motion],
+  .js .motion-ready[data-motion] .motion-line > span,
+  .js .motion-ready[data-motion] .footer-type-inner,
+  .js .hero-copy.motion-ready .hero-word-inner,
+  .js .hero-copy.motion-ready .hero-intro,
+  .js .hero-copy.motion-ready .hero-description,
+  .js .hero-art-area.motion-ready .art-photo-inner,
+  .js .hero-art-area.motion-ready .hero-look-controls { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .js .hero-art-area.motion-ready .art-note { opacity: 1 !important; transform: rotate(-4deg) !important; }
+  .js .hero-copy.motion-ready .hero-intro::after { transform: none !important; }
+  img[data-drift] { translate: none !important; scale: none !important; animation: none !important; }
+  .art-photo { translate: none; }
+  .button:active, .button svg, .contact-direct .direct-arrow, .text-link > span,
+  .project-image-button img,
+  .hero-look-controls button:active, .filter-list button:active,
+  .product-tabs button:active, .book-choice:active,
+  .reader-controls button:active, .reader-tools button:active,
+  .icon-button:active { transform: none !important; }
+  .studio-strip.is-running .ticker-track { will-change: auto; }
+}

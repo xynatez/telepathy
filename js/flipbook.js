@@ -267,10 +267,14 @@
     const angle = outgoing ? (direction > 0 ? -80 : 80) : (direction > 0 ? 65 : -65);
     const flat = { transform: 'perspective(1400px) rotateY(0deg)', opacity: 1 };
     const turned = { transform: `perspective(1400px) rotateY(${angle}deg)`, opacity: 0.6 };
+    const entranceDuration = window.TelepathyMotion?.duration('ui') ?? 300;
     const animation = sheet.animate([
       outgoing ? flat : turned,
       outgoing ? turned : flat
-    ], { duration: outgoing ? 180 : 300, easing: 'cubic-bezier(.22,.61,.36,1)' });
+    ], {
+      duration: outgoing ? entranceDuration * 0.6 : entranceDuration,
+      easing: outgoing ? 'cubic-bezier(.65,0,.35,1)' : 'cubic-bezier(.16,1,.3,1)'
+    });
     turnAnimation = animation;
     try {
       await animation.finished;
@@ -445,7 +449,7 @@
     requestPage(page);
   });
 
-  stage.addEventListener('wheel', (event) => {
+  const handleBookWheel = (event) => {
     const book = books?.get(selectedBook);
     if (!dialog?.open || reader.classList.contains('is-zoomed') || event.ctrlKey || !book || !activated) return;
     let delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
@@ -476,17 +480,19 @@
       wheelCooldownUntil = now + 420;
       requestPage(page);
     }
-  }, { passive: false });
+  };
+  stage.addEventListener('wheel', handleBookWheel, { passive: false });
 
   stage.addEventListener('touchstart', (event) => {
     touchStart = event.touches.length === 1 && !reader.classList.contains('is-zoomed')
       ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
   }, { passive: true });
-  stage.addEventListener('touchmove', (event) => {
+  const handleBookTouchMove = (event) => {
     if (!touchStart) return;
     const touch = event.touches[0];
     if (event.touches.length !== 1 || Math.abs(touch.clientY - touchStart.y) > 35) touchStart = null;
-  }, { passive: true });
+  };
+  stage.addEventListener('touchmove', handleBookTouchMove, { passive: true });
   stage.addEventListener('touchend', (event) => {
     if (!touchStart || !event.changedTouches.length) return;
     const touch = event.changedTouches[0];

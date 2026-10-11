@@ -1,0 +1,112 @@
+{
+  "format": "WebP",
+  "quality": 82,
+  "method": 4,
+  "resampling": "Lanczos",
+  "products": {
+    "dtf": {
+      "source": {
+        "path": "img/DTF/IMG_7144.webp",
+        "width": 3024,
+        "height": 4032,
+        "bytes": 394868
+      },
+      "variants": [
+        {
+          "path": "assets/products/dtf-480.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 17634,
+          "decoded": true
+        },
+        {
+          "path": "assets/products/dtf-960.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 53760,
+          "decoded": true
+        },
+        {
+          "path": "assets/products/dtf-1440.webp",
+          "width": 1440,
+          "height": 1920,
+          "bytes": 114426,
+          "decoded": true
+        }
+      ],
+      "largest_variant_savings_vs_source_bytes": 280442
+    },
+    "plastisol": {
+      "source": {
+        "path": "img/Plastisol/IMG_2082.webp",
+        "width": 3024,
+        "height": 4032,
+        "bytes": 2163644
+      },
+      "variants": [
+        {
+          "path": "assets/products/plastisol-480.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 68536,
+          "decoded": true
+        },
+        {
+          "path": "assets/products/plastisol-960.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 344432,
+          "decoded": true
+        },
+        {
+          "path": "assets/products/plastisol-1440.webp",
+          "width": 1440,
+          "height": 1920,
+          "bytes": 828726,
+          "decoded": true
+        }
+      ],
+      "largest_variant_savings_vs_source_bytes": 1334918
+    },
+    "hoodie": {
+      "source": {
+        "path": "img/Hoodie/IMG-20241109-WA0017.webp",
+        "width": 3024,
+        "height": 4032,
+        "bytes": 411318
+      },
+      "variants": [
+        {
+          "path": "assets/products/hoodie-480.webp",
+          "width": 480,
+          "height": 640,
+          "bytes": 35792,
+          "decoded": true
+        },
+        {
+          "path": "assets/products/hoodie-960.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 101230,
+          "decoded": true
+        },
+        {
+          "path": "assets/products/hoodie-1440.webp",
+          "width": 1440,
+          "height": 1920,
+          "bytes": 171218,
+          "decoded": true
+        }
+      ],
+      "largest_variant_savings_vs_source_bytes": 240100
+    }
+  },
+  "comparison": {
+    "source_total_bytes": 2969830,
+    "largest_variant_total_bytes": 1114370,
+    "largest_variant_savings_bytes": 1855460,
+    "largest_variant_savings_percent": 62.5,
+    "all_nine_variants_bytes": 1735754,
+    "note": "Responsive browser selection downloads one matching width per product; all_nine_variants_bytes is the stored total, not a single page-view download."
+  }
+}

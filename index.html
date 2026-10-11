@@ -6,11 +6,20 @@
   <meta name="theme-color" content="#2055A3">
   <meta name="description" content="Bikin kaos dan hoodie custom bareng Telepathy Lab. di Bandung. Lihat hasil sablon DTF dan Plastisol, cek harga, lalu ngobrol lewat WhatsApp.">
   <title>Telepathy Lab. | Kaos & Hoodie Custom Bandung</title>
+  <script>
+    document.documentElement.classList.add('js');
+    if ((!location.hash || location.hash === '#hero') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('motion-opening');
+      window.telepathyOpeningTimer = setTimeout(() => document.documentElement.classList.remove('motion-opening'), 1800);
+    }
+  </script>
   <link rel="icon" href="img/telepathy-lab-logo.png" type="image/png">
   <link rel="preload" href="assets/fonts/barlow-condensed-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/hero/wear-960.webp" as="image" type="image/webp" imagesrcset="assets/hero/wear-480.webp 480w, assets/hero/wear-960.webp 960w, assets/hero/wear-1440.webp 1440w" imagesizes="(min-width: 1440px) 450px, (min-width: 1020px) 33vw, (min-width: 768px) 40vw, 67vw" fetchpriority="high">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <script src="js/motion.js" defer></script>
   <script src="js/script.js" defer></script>
   <script src="js/flipbook.js" defer></script>
   <noscript><style>.hero-look-controls,.gallery-toolbar,.gallery-bottom,.product-tabs,.brief-builder{display:none}</style></noscript>
@@ -36,23 +45,31 @@
       <div class="hero-inner wrap">
         <div class="hero-copy" data-motion="hero">
           <p class="eyebrow hero-intro">Telepathy Lab. / Bandung</p>
-          <h1 id="hero-title"><span>KAOS &</span><span>HOODIE</span><span class="hero-last">CUSTOM<span class="ink-dot">.</span></span></h1>
+          <h1 id="hero-title">
+            <span class="hero-word"><span class="hero-word-inner">KAOS &amp;</span></span>
+            <span class="hero-word"><span class="hero-word-inner">HOODIE</span></span>
+            <span class="hero-word hero-last"><span class="hero-word-inner">CUSTOM<span class="ink-dot">.</span></span></span>
+          </h1>
           <div class="hero-description">
             <p>Mau bikin kaos buat brand, komunitas, atau satu angkatan? Kita bikin di Bandung, pakai sablon DTF atau Plastisol. Hoodie juga bisa.</p>
             <a class="button button-paper" href="#portfolio">Lihat yang udah jadi <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v16m-6-6 6 6 6-6"/></svg></a>
           </div>
         </div>
-        <div class="hero-art-area" data-motion="hero" style="--motion-delay: 120ms">
+        <div class="hero-art-area" data-motion="hero">
           <div id="hero-art" class="hero-art" data-look="wear">
             <span class="art-registration art-registration-a" aria-hidden="true"></span>
             <span class="art-registration art-registration-b" aria-hidden="true"></span>
             <figure class="art-photo art-photo-wear">
+              <div class="art-photo-inner">
               <img src="assets/hero/wear-960.webp" srcset="assets/hero/wear-480.webp 480w, assets/hero/wear-960.webp 960w, assets/hero/wear-1440.webp 1440w" sizes="(min-width: 1440px) 450px, (min-width: 1020px) 33vw, (min-width: 768px) 40vw, 67vw" alt="Bagian belakang Tele Shirt dengan ilustrasi berwarna, dipakai di sawah saat matahari terbenam" width="1200" height="1600" fetchpriority="high" decoding="async">
-              <figcaption><span>Tele Shirt</span><span>Saat dipakai / DTF</span></figcaption>
+              <figcaption><span>Tele Shirt / DTF</span><span>01</span></figcaption>
+              </div>
             </figure>
             <figure class="art-photo art-photo-print">
+              <div class="art-photo-inner">
               <img src="assets/hero/print-960.webp" srcset="assets/hero/print-480.webp 480w, assets/hero/print-960.webp 960w, assets/hero/print-1440.webp 1440w" sizes="(min-width: 1440px) 450px, (min-width: 1020px) 33vw, (min-width: 768px) 40vw, 67vw" alt="Detail sablon ilustrasi karakter berwarna pada kaos hitam" width="1200" height="1600" decoding="async">
-              <figcaption><span>Detail sablon</span><span>Detail cetak / DTF</span></figcaption>
+              <figcaption><span>Detail cetak / DTF</span><span>02</span></figcaption>
+              </div>
             </figure>
             <span class="art-note">SABLON<br>DTF</span>
           </div>
@@ -70,14 +87,14 @@
         <div class="ticker-group"><span>KAOS CUSTOM</span><span class="strip-outline">SABLON DTF</span><span>PLASTISOL</span><span class="ticker-mark">/</span></div>
         <div class="ticker-group"><span>KAOS CUSTOM</span><span class="strip-outline">SABLON DTF</span><span>PLASTISOL</span><span class="ticker-mark">/</span></div>
       </div>
-      <button id="ticker-toggle" class="ticker-toggle" type="button" aria-label="Jeda teks berjalan" aria-pressed="false" hidden>Jeda</button>
+      <button id="ticker-toggle" class="ticker-toggle" type="button" aria-label="Jeda teks berjalan" aria-pressed="false" hidden><svg class="ticker-pause" aria-hidden="true" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></svg><svg class="ticker-play" aria-hidden="true" viewBox="0 0 24 24" hidden><path d="m8 5 11 7-11 7Z"/></svg></button>
     </div>
     <section id="portfolio" class="portfolio section wrap" aria-labelledby="portfolio-title">
       <div class="section-heading">
-        <div><p class="eyebrow">Foto produksi / Telepathy Lab.</p><h2 id="portfolio-title" class="editorial-title" data-motion="heading"><span class="motion-line"><span>Yang udah</span></span><span class="motion-line"><span class="accent-text">kita bikin.</span></span></h2></div>
-        <p class="section-aside">Lihat pas dipakai, terus buka fotonya buat cek detail sablonnya.</p>
+        <div><p class="eyebrow" data-motion="text">Foto produksi / Telepathy Lab.</p><h2 id="portfolio-title" class="editorial-title" data-motion="heading"><span class="motion-line"><span>Yang udah</span></span><span class="motion-line"><span class="accent-text">kita bikin.</span></span></h2></div>
+        <p class="section-aside" data-motion="text">Lihat pas dipakai, terus buka fotonya buat cek detail sablonnya.</p>
       </div>
-      <div class="gallery-toolbar">
+      <div class="gallery-toolbar" data-motion="line">
         <div id="portfolio-filters" class="filter-list" aria-label="Filter foto produksi">
           <button type="button" data-filter="all" aria-pressed="true">Semua</button>
           <button type="button" data-filter="dtf" aria-pressed="false">DTF</button>
@@ -89,39 +106,39 @@
       </div>
       <div id="portfolio-grid" class="portfolio-grid"></div>
       <p id="gallery-empty" class="gallery-empty" hidden>Fotonya belum ada di kategori ini. Coba pilih yang lain.</p>
-      <noscript><p>Buka foto di bawah buat lihat detailnya.</p><div class="portfolio-grid"><a href="img/DTF/IMG_7135.webp"><img src="img/DTF/IMG_7135.webp" alt="Tele Shirt sablon DTF"></a><a href="img/Plastisol/IMG_5024.webp"><img src="img/Plastisol/IMG_5024.webp" alt="Tele Shirt sablon Plastisol"></a><a href="img/Hoodie/IMG-20241109-WA0015.webp"><img src="img/Hoodie/IMG-20241109-WA0015.webp" alt="Hoodie custom komunitas"></a></div></noscript>
-      <div class="gallery-bottom"><p>Masih ada foto lain. Buka semuanya kalau mau lihat lebih banyak.</p><button id="gallery-more" class="button button-outline" type="button">Buka semua foto</button></div>
+      <noscript><p>Buka foto di bawah buat lihat detailnya.</p><div class="portfolio-grid"><a href="img/DTF/IMG_7135.webp"><img src="assets/hero/wear-960.webp" alt="Tele Shirt sablon DTF" width="960" height="1280" loading="lazy"></a><a href="img/Plastisol/IMG_5024.webp"><img src="img/Plastisol/IMG_5024.webp" alt="Tele Shirt sablon Plastisol" width="3024" height="3223" loading="lazy"></a><a href="img/Hoodie/IMG-20241109-WA0015.webp"><img src="img/Hoodie/IMG-20241109-WA0015.webp" alt="Hoodie custom komunitas" width="3024" height="4032" loading="lazy"></a></div></noscript>
+      <div class="gallery-bottom" data-motion="text"><p>Masih ada foto lain. Buka semuanya kalau mau lihat lebih banyak.</p><button id="gallery-more" class="button button-outline" type="button">Buka semua foto</button></div>
     </section>
     <section id="products" class="products section" aria-labelledby="products-title">
       <div class="wrap">
-        <div class="section-heading"><div><p class="eyebrow">Kaos & hoodie custom</p><h2 id="products-title" class="editorial-title" data-motion="heading"><span class="motion-line"><span>Mau pakai</span></span><span class="motion-line"><span>yang mana?</span></span></h2></div><p class="section-aside">Pilih buat lihat detailnya. Kalau masih bingung soal sablon, kita bahas bareng.</p></div>
+        <div class="section-heading"><div><p class="eyebrow" data-motion="text">Kaos & hoodie custom</p><h2 id="products-title" class="editorial-title" data-motion="heading"><span class="motion-line"><span>Mau pakai</span></span><span class="motion-line"><span>yang mana?</span></span></h2></div><p class="section-aside" data-motion="text">Pilih buat lihat detailnya. Kalau masih bingung soal sablon, kita bahas bareng.</p></div>
         <div class="product-layout">
           <div id="product-tabs" class="product-tabs" role="tablist" aria-label="Pilihan produk" aria-orientation="vertical">
-            <button id="tab-dtf" type="button" role="tab" data-product="dtf" aria-selected="true" aria-controls="product-detail"><span class="product-tab-number">01</span><span><strong>DTF</strong><small>Tele Shirt / cetak di film</small></span></button>
-            <button id="tab-plastisol" type="button" role="tab" data-product="plastisol" aria-selected="false" aria-controls="product-detail" tabindex="-1"><span class="product-tab-number">02</span><span><strong>PLASTISOL</strong><small>Tele Shirt / sablon tinta</small></span></button>
-            <button id="tab-hoodie" type="button" role="tab" data-product="hoodie" aria-selected="false" aria-controls="product-detail" tabindex="-1"><span class="product-tab-number">03</span><span><strong>HOODIE</strong><small>Tele Hoodie / bikin custom</small></span></button>
+            <button id="tab-dtf" type="button" role="tab" data-product="dtf" data-motion="line" aria-selected="true" aria-controls="product-detail"><span class="product-tab-number">01</span><span><strong>DTF</strong><small>Tele Shirt / cetak di film</small></span></button>
+            <button id="tab-plastisol" type="button" role="tab" data-product="plastisol" data-motion="line" style="--motion-delay: var(--stagger)" aria-selected="false" aria-controls="product-detail" tabindex="-1"><span class="product-tab-number">02</span><span><strong>PLASTISOL</strong><small>Tele Shirt / sablon tinta</small></span></button>
+            <button id="tab-hoodie" type="button" role="tab" data-product="hoodie" data-motion="line" style="--motion-delay: calc(var(--stagger) * 2)" aria-selected="false" aria-controls="product-detail" tabindex="-1"><span class="product-tab-number">03</span><span><strong>HOODIE</strong><small>Tele Hoodie / bikin custom</small></span></button>
           </div>
           <div id="product-detail" class="product-detail" data-motion="product" role="tabpanel" aria-labelledby="tab-dtf" tabindex="0">
-            <div class="product-photo"><img id="product-image" src="img/DTF/IMG_7144.webp" alt="Detail sablon DTF pada bagian dada kaos putih" width="1000" height="1400" loading="lazy"></div>
+            <div class="product-photo"><img id="product-image" data-drift="8" src="assets/products/dtf-960.webp" srcset="assets/products/dtf-480.webp 480w, assets/products/dtf-960.webp 960w, assets/products/dtf-1440.webp 1440w" sizes="(min-width: 1456px) 446px, (min-width: 1020px) calc(35.7vw - 74px), (min-width: 760px) calc(67.5vw - 65px), (min-width: 540px) calc(100vw - 64px), calc(100vw - 40px)" alt="Detail sablon DTF pada bagian dada kaos putih" width="960" height="1280" loading="lazy" decoding="async"></div>
             <div class="product-copy"><h3 id="product-name">Tele Shirt / DTF</h3><p id="product-description">Desainnya dicetak di film, terus dipindahin ke kaos pakai panas. Bisa buat ilustrasi yang banyak warna dan detail.</p><dl class="product-specs"><div><dt>Teknik</dt><dd id="product-technique">Direct-to-Film (DTF)</dd></div><div><dt>Bisa buat</dt><dd id="product-use">Ilustrasi, logo, dan desain banyak warna</dd></div></dl><a id="product-link" class="text-link" href="#contact">Tanya soal yang ini</a></div>
           </div>
         </div>
       </div>
     </section>
     <section id="about" class="studio section wrap" aria-labelledby="about-title">
-      <div class="studio-top"><p class="eyebrow">Tentang kita</p><span class="studio-location">Bandung, Jawa Barat</span></div>
+      <div class="studio-top" data-motion="text"><p class="eyebrow">Tentang kita</p><span class="studio-location">Bandung, Jawa Barat</span></div>
       <div class="studio-layout"><h2 id="about-title" class="editorial-title" data-motion="heading"><span class="motion-line"><span>Dibikin di</span></span><span class="motion-line"><span class="accent-text">Bandung.</span></span></h2><div class="studio-copy" data-motion="text"><p class="large-copy">Kita bikin kaos dan hoodie custom di Bandung.</p><p>Kirim desainnya dulu. Mau pilih bahan, tentuin posisi sablon, atau hitung jumlah pesanan, kita obrolin lewat WhatsApp.</p><a class="text-link" href="https://wa.me/6285720071185" target="_blank" rel="noopener noreferrer">Kirim desainmu <span aria-hidden="true">↗</span></a></div></div>
-      <div id="partners" class="material-partners"><div><p class="eyebrow">Bahan yang bisa kamu pilih</p><p>Knitto Textiles dan Nirwana Textile. Cek pilihan bahannya di sini.</p></div><a href="https://knitto.co.id/" target="_blank" rel="noopener noreferrer" class="partner-link"><img src="Knitto.png" alt="" width="155" height="70" loading="lazy"><span>Knitto Textiles <span aria-hidden="true">↗</span></span></a><a href="https://www.nirwanatextile.com/" target="_blank" rel="noopener noreferrer" class="partner-link"><img src="Logo-Nirwana.png" alt="" width="155" height="70" loading="lazy"><span>Nirwana Textile <span aria-hidden="true">↗</span></span></a></div>
+      <div id="partners" class="material-partners"><div data-motion="text"><p class="eyebrow">Bahan yang bisa kamu pilih</p><p>Knitto Textiles dan Nirwana Textile. Cek pilihan bahannya di sini.</p></div><a href="https://knitto.co.id/" target="_blank" rel="noopener noreferrer" class="partner-link" data-motion="line"><img src="Knitto.png" alt="" width="155" height="70" loading="lazy"><span>Knitto Textiles <span aria-hidden="true">↗</span></span></a><a href="https://www.nirwanatextile.com/" target="_blank" rel="noopener noreferrer" class="partner-link" data-motion="line" style="--motion-delay: var(--stagger)"><img src="Logo-Nirwana.png" alt="" width="155" height="70" loading="lazy"><span>Nirwana Textile <span aria-hidden="true">↗</span></span></a></div>
     </section>
     <section id="booklet" class="resources section" aria-labelledby="booklet-title">
       <div class="wrap booklet-layout">
-        <div class="booklet-intro"><p class="eyebrow">Harga, ukuran, dan bahan</p><h2 id="booklet-title" class="editorial-title" data-motion="heading"><span class="motion-line"><span>Buka</span></span><span class="motion-line"><span class="accent-text">bukunya.</span></span></h2><p>Cek harga dan ukuran sebelum pesan. Pilih buku, terus geser halamannya. PDF-nya bisa kamu simpan juga.</p></div>
+        <div class="booklet-intro"><p class="eyebrow" data-motion="text">Harga, ukuran, dan bahan</p><h2 id="booklet-title" class="editorial-title" data-motion="heading"><span class="motion-line"><span>Buka</span></span><span class="motion-line"><span class="accent-text">bukunya.</span></span></h2><p data-motion="text">Cek harga dan ukuran sebelum pesan. Pilih buku, terus geser halamannya. PDF-nya bisa kamu simpan juga.</p></div>
         <div class="book-shelf" aria-label="Pilih buku">
           <button class="book-choice" type="button" data-book="pricelist" data-title="Pricelist 2026" data-pdf="assets/documents/pricelist-2026.pdf" aria-pressed="true" aria-controls="book-reader" data-motion="line"><span class="book-order">01</span><span class="book-label"><strong>Pricelist</strong><small>Harga kaos / 2026</small></span><span class="book-pages">4 halaman</span></button>
-          <button class="book-choice" type="button" data-book="sizechart" data-title="Size chart Regular Fit" data-pdf="assets/documents/size-chart-regular-fit.pdf" aria-pressed="false" aria-controls="book-reader" data-motion="line" style="--motion-delay: 70ms"><span class="book-order">02</span><span class="book-label"><strong>Size chart</strong><small>Ukuran Regular Fit</small></span><span class="book-pages">3 halaman</span></button>
-          <button class="book-choice" type="button" data-book="handbook" data-title="Customwear handbook" data-pdf="assets/documents/handbook.pdf" aria-pressed="false" aria-controls="book-reader" data-motion="line" style="--motion-delay: 140ms"><span class="book-order">03</span><span class="book-label"><strong>Handbook</strong><small>Bahan, sablon, dan warna</small></span><span class="book-pages">25 halaman</span></button>
+          <button class="book-choice" type="button" data-book="sizechart" data-title="Size chart Regular Fit" data-pdf="assets/documents/size-chart-regular-fit.pdf" aria-pressed="false" aria-controls="book-reader" data-motion="line" style="--motion-delay: var(--stagger)"><span class="book-order">02</span><span class="book-label"><strong>Size chart</strong><small>Ukuran Regular Fit</small></span><span class="book-pages">3 halaman</span></button>
+          <button class="book-choice" type="button" data-book="handbook" data-title="Customwear handbook" data-pdf="assets/documents/handbook.pdf" aria-pressed="false" aria-controls="book-reader" data-motion="line" style="--motion-delay: calc(var(--stagger) * 2)"><span class="book-order">03</span><span class="book-label"><strong>Handbook</strong><small>Bahan, sablon, dan warna</small></span><span class="book-pages">25 halaman</span></button>
         </div>
-        <div id="book-reader-slot">
+        <div id="book-reader-slot" data-motion="reader">
           <div id="book-reader" class="book-reader" role="region" aria-label="Pembaca buku" aria-busy="false">
             <div class="reader-topline"><h3 id="book-title">Pricelist 2026</h3><p id="book-page-label" aria-live="polite">Halaman 1 / 4</p></div>
             <div id="book-stage" class="book-stage" role="group" tabindex="0" aria-label="Halaman buku. Pakai panah kiri dan kanan buat pindah halaman." aria-describedby="book-page-text">
@@ -144,9 +161,9 @@
     </section>
     <section id="contact" class="contact section" aria-labelledby="contact-title">
       <div class="wrap">
-      <div class="section-heading"><div><p class="eyebrow">Ngobrolin pesanan</p><h2 id="contact-title" class="editorial-title" data-motion="heading"><span class="motion-line"><span>Bikin</span></span><span class="motion-line"><span class="accent-text">bareng?</span></span></h2></div><p class="section-aside">Ceritain mau bikin apa. Kalau desainnya belum siap, tanya-tanya dulu juga boleh.</p></div>
+      <div class="section-heading"><div><p class="eyebrow" data-motion="text">Ngobrolin pesanan</p><h2 id="contact-title" class="editorial-title" data-motion="heading"><span class="motion-line"><span>Bikin</span></span><span class="motion-line"><span class="accent-text">bareng?</span></span></h2></div><p class="section-aside" data-motion="text">Ceritain mau bikin apa. Kalau desainnya belum siap, tanya-tanya dulu juga boleh.</p></div>
       <div class="contact-layout"><div class="contact-info" data-motion="contact"><a class="contact-direct" href="https://wa.me/6285720071185" target="_blank" rel="noopener noreferrer"><span>Langsung ke WhatsApp</span><strong>0857 2007 1185</strong><span class="direct-arrow" aria-hidden="true">↗</span></a><dl><div><dt>Email</dt><dd><a href="mailto:telepathycorporation@gmail.com">telepathycorporation@gmail.com</a></dd></div><div><dt>Studio</dt><dd>Jl. Paseh-Kamojang No.087<br>Bandung, Jawa Barat 40384<br>Indonesia</dd></div></dl><p class="contact-note">Belum tahu bahan atau sablon yang cocok? Kirim desainnya, kita bantu bahas.</p></div>
-        <div class="brief-builder" data-motion="contact" style="--motion-delay: 100ms">
+        <div class="brief-builder" data-motion="contact" style="--motion-delay: var(--stagger)">
           <form id="project-form">
             <h3>Mau bikin apa?</h3>
             <p class="form-intro">Isi yang udah kamu tahu. Nanti kamu bisa cek pesannya dulu sebelum kirim ke WhatsApp.</p>
@@ -197,7 +214,7 @@
       </div>
     </section>
   </main>
-  <footer class="site-footer"><div class="wrap"><div class="footer-top"><span>Telepathy Lab. / Bandung</span><a id="back-to-top" class="text-link" href="#hero">Balik ke atas <span aria-hidden="true">↑</span></a></div><p class="footer-wordmark" data-motion="footer">TELEPATHY LAB<span>.</span></p><div class="footer-bottom"><p>© <span id="current-year">2026</span> Telepathy Lab.</p><p>Konveksi & sablon custom / Bandung</p><a href="mailto:telepathycorporation@gmail.com">Kirim email</a></div></div></footer>
+  <footer class="site-footer"><div class="wrap"><div class="footer-top" data-motion="text"><span>Telepathy Lab. / Bandung</span><a id="back-to-top" class="text-link" href="#hero">Balik ke atas <span aria-hidden="true">↑</span></a></div><p class="footer-wordmark" data-motion="footer"><span class="footer-type-inner">TELEPATHY LAB<span>.</span></span></p><div class="footer-bottom" data-motion="text"><p>© <span id="current-year">2026</span> Telepathy Lab.</p><p>Konveksi & sablon custom / Bandung</p><a href="mailto:telepathycorporation@gmail.com">Kirim email</a></div></div></footer>
   <dialog id="book-dialog" class="reader-dialog" aria-labelledby="book-dialog-title"><div class="reader-dialog-header"><h2 id="book-dialog-title">Baca bukunya</h2><button id="book-close" class="icon-button" type="button" aria-label="Tutup buku"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><div id="book-dialog-mount"></div></dialog>
   <dialog id="project-dialog" class="project-dialog" aria-labelledby="dialog-title">
     <div class="dialog-header"><div><p id="dialog-category" class="eyebrow"></p><h2 id="dialog-title">Foto produksi</h2></div><button id="dialog-close" class="icon-button" type="button" aria-label="Tutup foto"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>

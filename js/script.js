@@ -3,6 +3,7 @@
 
   const byId = (id) => document.getElementById(id);
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = window.TelepathyMotion;
   let enterObserver = null;
   let exitObserver = null;
   const motionStates = new Map();
@@ -13,6 +14,7 @@
   let forceViewport = false;
   let lastMotionScrollY = window.scrollY;
   let motionDirection = 'down';
+  let firstMotionBoot = true;
   const exitMargin = 128;
 
   function hasMotionFocus(target) {
@@ -27,8 +29,15 @@
   function motionTargets(scope) {
     return [...(scope.matches?.('[data-motion]') ? [scope] : []), ...scope.querySelectorAll('[data-motion]')];
   }
+  function releaseOpening() {
+    window.clearTimeout(window.telepathyOpeningTimer);
+    document.documentElement.classList.remove('motion-opening');
+  }
   function registerMotion(scope = document) {
     const registrationGeneration = motionGeneration;
+    const openingBoot = firstMotionBoot;
+    const openingHero = openingBoot && document.documentElement.classList.contains('motion-opening')
+      && (!window.location.hash || window.location.hash === '#hero') && window.scrollY <= 16;
     const registrations = motionTargets(scope).filter((target) => !motionStates.has(target)).map((target) => {
       const box = target.dataset.motion === 'photo' ? target.closest('article') || target : target;
       return { target, box, rect: box.getBoundingClientRect(), focused: hasMotionFocus(target) };
@@ -43,7 +52,8 @@
         return;
       }
       target.classList.add('motion-ready');
-      if (focused || intersectsViewport(rect)) revealMotion(target, focused);
+      const stagedPhoto = scope !== document && target.dataset.motion === 'photo';
+      if (focused || (intersectsViewport(rect) && !(openingHero && target.dataset.motion === 'hero') && !stagedPhoto)) revealMotion(target, focused);
       else {
         target.classList.add('motion-resetting');
         target.classList.remove('is-revealed');
@@ -55,10 +65,12 @@
       }
       observationBoxes.get(box).add(target);
     });
+    if (!enterObserver || (openingBoot && !registrations.length)) releaseOpening();
     if (registrations.length && enterObserver) {
       // Let the armed style paint before an observer can begin its transition.
       window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
         if (registrationGeneration !== motionGeneration) return;
+        if (openingBoot) releaseOpening();
         registrations.forEach(({ target }) => {
           const record = motionStates.get(target);
           if (!record) return;
@@ -164,6 +176,7 @@
       exitObserver = new IntersectionObserver(queueMotionEntries, { threshold: 0, rootMargin: `${exitMargin}px` });
     }
     registerMotion();
+    firstMotionBoot = false;
   }
   document.addEventListener('focusin', (event) => {
     let target = event.target.closest('[data-motion]');
@@ -182,23 +195,14 @@
     scheduleMotionBatch();
   });
   window.addEventListener('hashchange', () => window.requestAnimationFrame(revealViewport));
-  window.addEventListener('pageshow', () => window.requestAnimationFrame(revealViewport));
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted || (window.location.hash && window.location.hash !== '#hero') || window.scrollY > 16) window.requestAnimationFrame(revealViewport);
+  });
   window.addEventListener('resize', revealViewport, { passive: true });
   reducedMotion.addEventListener('change', prepareMotion);
   prepareMotion();
-  const changes = new WeakMap();
   function animateChange(element) {
-    if (!element) return;
-    const previous = changes.get(element);
-    if (previous) window.clearTimeout(previous);
-    element.classList.remove('is-changing');
-    if (reducedMotion.matches) return;
-    void element.offsetWidth;
-    element.classList.add('is-changing');
-    changes.set(element, window.setTimeout(() => {
-      element.classList.remove('is-changing');
-      changes.delete(element);
-    }, 500));
+    motion?.animateChange(element);
   }
 
   const projects = [
@@ -267,45 +271,52 @@
 
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   let pointerFrame = 0;
-  let pointerX = 0;
-  let pointerY = 0;
+  let pointerClientX = 0;
+  let pointerClientY = 0;
   function resetHeroPointer() {
     if (pointerFrame) window.cancelAnimationFrame(pointerFrame);
     pointerFrame = 0;
-    pointerX = 0;
-    pointerY = 0;
+    pointerClientX = 0;
+    pointerClientY = 0;
     heroArt?.style.setProperty('--pointer-x', '0px');
     heroArt?.style.setProperty('--pointer-y', '0px');
   }
   heroArt?.addEventListener('pointermove', (event) => {
     if (!finePointer.matches || reducedMotion.matches) return;
-    const rect = heroArt.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
-    pointerX = Math.max(-6, Math.min(6, ((event.clientX - rect.left) / rect.width - 0.5) * 12));
-    pointerY = Math.max(-6, Math.min(6, ((event.clientY - rect.top) / rect.height - 0.5) * 12));
+    pointerClientX = event.clientX;
+    pointerClientY = event.clientY;
     if (pointerFrame) return;
     pointerFrame = window.requestAnimationFrame(() => {
       pointerFrame = 0;
+      if (!finePointer.matches || reducedMotion.matches) return;
+      const rect = heroArt.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const pointerX = Math.max(-6, Math.min(6, ((pointerClientX - rect.left) / rect.width - 0.5) * 12));
+      const pointerY = Math.max(-6, Math.min(6, ((pointerClientY - rect.top) / rect.height - 0.5) * 12));
       heroArt.style.setProperty('--pointer-x', `${pointerX.toFixed(2)}px`);
       heroArt.style.setProperty('--pointer-y', `${pointerY.toFixed(2)}px`);
     });
   });
   heroArt?.addEventListener('pointerleave', resetHeroPointer);
+  heroArt?.addEventListener('pointercancel', resetHeroPointer);
   finePointer.addEventListener('change', resetHeroPointer);
   reducedMotion.addEventListener('change', resetHeroPointer);
 
   const ticker = byId('print-ticker');
   const tickerToggle = byId('ticker-toggle');
   let tickerPaused = false;
+  let tickerVisible = !('IntersectionObserver' in window);
   function updateTicker() {
     if (!ticker || !tickerToggle) return;
     const enabled = !reducedMotion.matches;
     ticker.classList.toggle('ticker-ready', enabled);
     ticker.classList.toggle('is-paused', tickerPaused);
+    ticker.classList.toggle('is-running', enabled && tickerVisible && !document.hidden && !tickerPaused);
     tickerToggle.hidden = !enabled;
     tickerToggle.disabled = !enabled;
     tickerToggle.setAttribute('aria-pressed', String(tickerPaused));
-    tickerToggle.textContent = tickerPaused ? 'Putar' : 'Jeda';
+    tickerToggle.querySelector('.ticker-pause')?.toggleAttribute('hidden', tickerPaused);
+    tickerToggle.querySelector('.ticker-play')?.toggleAttribute('hidden', !tickerPaused);
     tickerToggle.setAttribute('aria-label', tickerPaused ? 'Jalankan teks berjalan' : 'Jeda teks berjalan');
   }
   tickerToggle?.addEventListener('click', () => {
@@ -313,6 +324,17 @@
     updateTicker();
   });
   reducedMotion.addEventListener('change', updateTicker);
+  document.addEventListener('visibilitychange', () => {
+    updateTicker();
+    if (document.hidden) resetHeroPointer();
+  });
+  if (ticker && 'IntersectionObserver' in window) {
+    const tickerObserver = new IntersectionObserver((entries) => {
+      tickerVisible = entries.some((entry) => entry.isIntersecting);
+      updateTicker();
+    }, { threshold: 0 });
+    tickerObserver.observe(ticker);
+  }
   updateTicker();
 
   const menu = byId('menu-toggle');
@@ -343,9 +365,86 @@
   const grid = byId('portfolio-grid');
   const filters = byId('portfolio-filters');
   const more = byId('gallery-more');
+  let peekButton = null;
+  let peekBounds = null;
+  let peekFrame = 0;
+  let peekClientX = 0;
+  let peekClientY = 0;
   let filter = 'all';
   let expanded = false;
   const filteredProjects = () => projects.filter((project) => filter === 'all' || project.category === filter);
+  function resetPhotoPeek() {
+    if (peekFrame) window.cancelAnimationFrame(peekFrame);
+    peekFrame = 0;
+    if (peekButton) {
+      peekButton.classList.remove('peek-active');
+      peekButton.style.removeProperty('--peek-x');
+      peekButton.style.removeProperty('--peek-y');
+    }
+    peekButton = null;
+    peekBounds = null;
+  }
+  function updatePhotoPeek() {
+    peekFrame = 0;
+    const button = peekButton;
+    if (!button?.isConnected || !finePointer.matches || reducedMotion.matches || document.hidden || hasMotionFocus(button)) {
+      resetPhotoPeek();
+      return;
+    }
+    if (!peekBounds) {
+      const rect = button.getBoundingClientRect();
+      const label = button.querySelector('.project-open');
+      if (!label) {
+        resetPhotoPeek();
+        return;
+      }
+      peekBounds = {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+        width: rect.width,
+        height: rect.height,
+        labelWidth: label.offsetWidth,
+        labelHeight: label.offsetHeight,
+        labelLeft: label.offsetLeft,
+        labelTop: label.offsetTop
+      };
+    }
+    const x = peekClientX - (peekBounds.left - window.scrollX);
+    const y = peekClientY - (peekBounds.top - window.scrollY);
+    const left = Math.max(12, Math.min(peekBounds.width - peekBounds.labelWidth - 12, x + 12));
+    const top = Math.max(12, Math.min(peekBounds.height - peekBounds.labelHeight - 12, y + 12));
+    button.style.setProperty('--peek-x', `${(left - peekBounds.labelLeft).toFixed(2)}px`);
+    button.style.setProperty('--peek-y', `${(top - peekBounds.labelTop).toFixed(2)}px`);
+    button.classList.add('peek-active');
+  }
+  function queuePhotoPeek(event) {
+    const button = event.target.closest('.project-image-button');
+    if (!button || !grid?.contains(button)) return;
+    if (!finePointer.matches || reducedMotion.matches || document.hidden || event.pointerType === 'touch' || hasMotionFocus(button)) {
+      resetPhotoPeek();
+      return;
+    }
+    if (button !== peekButton) {
+      resetPhotoPeek();
+      peekButton = button;
+    }
+    peekClientX = event.clientX;
+    peekClientY = event.clientY;
+    if (!peekFrame) peekFrame = window.requestAnimationFrame(updatePhotoPeek);
+  }
+  grid?.addEventListener('pointerover', queuePhotoPeek);
+  grid?.addEventListener('pointermove', queuePhotoPeek);
+  grid?.addEventListener('pointerout', (event) => {
+    if (peekButton && !peekButton.contains(event.relatedTarget)) resetPhotoPeek();
+  });
+  grid?.addEventListener('pointercancel', resetPhotoPeek);
+  grid?.addEventListener('focusin', resetPhotoPeek);
+  grid?.addEventListener('focusout', resetPhotoPeek);
+  window.addEventListener('scroll', resetPhotoPeek, { passive: true });
+  window.addEventListener('resize', resetPhotoPeek, { passive: true });
+  finePointer.addEventListener('change', resetPhotoPeek);
+  reducedMotion.addEventListener('change', resetPhotoPeek);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) resetPhotoPeek(); });
   const galleryHeroPreviews = {
     'img/DTF/IMG_7135.webp': 'wear',
     'img/DTF/IMG_2100.webp': 'print'
@@ -359,6 +458,7 @@
       const card = document.createElement('article');
       card.className = 'project-card';
       card.dataset.category = project.category;
+      if (order < 2) card.dataset.driftFrame = '';
       card.style.setProperty('--project-order', String(Math.min(order, 5)));
       const button = document.createElement('button');
       button.type = 'button';
@@ -370,6 +470,7 @@
       const image = document.createElement('img');
       image.loading = 'lazy';
       image.decoding = 'async';
+      if (order < 2) image.dataset.drift = '8';
       const preview = galleryHeroPreviews[project.src];
       if (preview) {
         image.sizes = '(min-width: 1440px) 740px, (min-width: 768px) 55vw, 100vw';
@@ -379,7 +480,7 @@
       image.alt = photoAlt(project.src);
       const open = document.createElement('span');
       open.className = 'project-open';
-      open.textContent = 'Lihat foto';
+      open.textContent = 'Buka foto ↗';
       open.setAttribute('aria-hidden', 'true');
       button.append(image, open);
       const caption = document.createElement('div');
@@ -396,9 +497,12 @@
       card.append(button, caption);
       fragment.append(card);
     });
+    resetPhotoPeek();
     unregisterMotion(grid);
+    motion?.unregisterDrift(grid);
     grid.replaceChildren(fragment);
     registerMotion(grid);
+    motion?.registerDrift(grid);
     if (byId('gallery-count')) byId('gallery-count').textContent = `${visible.length} dari ${matching.length} foto`;
     if (byId('gallery-empty')) byId('gallery-empty').hidden = visible.length > 0;
     if (more) {
@@ -453,7 +557,7 @@
     ++imageRequest;
     dialog.classList.add('is-closing');
     dialog.addEventListener('animationend', finishDialogClose);
-    closeTimer = window.setTimeout(() => finishDialogClose(), 200);
+    closeTimer = window.setTimeout(() => finishDialogClose(), (motion?.duration('exit') ?? 170) + 50);
   }
   reducedMotion.addEventListener('change', () => {
     if (reducedMotion.matches && closingDialog) finishDialogClose();
@@ -495,6 +599,7 @@
   grid?.addEventListener('click', (event) => {
     const button = event.target.closest('button[data-project]');
     if (!button || !dialog) return;
+    resetPhotoPeek();
     viewerProjects = filteredProjects();
     viewerPosition = viewerProjects.findIndex((project) => project.index === Number(button.dataset.project));
     if (viewerPosition < 0) return;
@@ -555,8 +660,10 @@
     byId('product-description').textContent = product.description;
     byId('product-technique').textContent = product.technique;
     byId('product-use').textContent = product.use;
-    byId('product-image').src = product.src;
-    byId('product-image').alt = photoAlt(product.src);
+    const productImage = byId('product-image');
+    productImage.srcset = [480, 960, 1440].map((width) => `assets/products/${key}-${width}.webp ${width}w`).join(', ');
+    productImage.src = `assets/products/${key}-960.webp`;
+    productImage.alt = photoAlt(product.src);
     byId('product-link').href = '#contact';
     if (animate) animateChange(productDetail);
   }
@@ -687,11 +794,10 @@
       previousActive = active;
     }
   }
-  window.addEventListener('scroll', () => {
+  function queueScroll() {
     if (!scrollQueued) { scrollQueued = true; window.requestAnimationFrame(updateScroll); }
-  }, { passive: true });
-  window.addEventListener('resize', () => {
-    if (!scrollQueued) { scrollQueued = true; window.requestAnimationFrame(updateScroll); }
-  }, { passive: true });
+  }
+  window.addEventListener('scroll', queueScroll, { passive: true });
+  window.addEventListener('resize', queueScroll, { passive: true });
   updateScroll();
 })();
