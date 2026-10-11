@@ -12,6 +12,13 @@
   font-weight: 400 800;
   font-display: swap;
 }
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/montserrat-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
 :root {
   --paper: #f5f3ee;
   --ink: #20201e;
@@ -25,6 +32,7 @@
   --input-border: #817d74;
   --backdrop: rgb(20 20 18 / 82%);
   --sans: "Bricolage Grotesque", Arial, sans-serif;
+  --brand: "Montserrat", Arial, sans-serif;
   --display: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
   --space-1: .25rem;
   --space-2: .5rem;
@@ -90,7 +98,7 @@ h3 { font-weight: 600; line-height: 1.25; }
 .site-header { position: sticky; top: 0; background: var(--stamp); color: var(--paper); z-index: 20; border-bottom: 1px solid rgb(245 243 238 / 30%); }
 .site-header :focus-visible { outline-color: var(--print-yellow); }
 .header-inner { height: 80px; min-height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.wordmark { font-size: 1.6rem; font-weight: 800; line-height: .92; letter-spacing: -.07em; display: block; min-width: 145px; padding-block: .5rem; }
+.wordmark { font-family: var(--brand); font-size: 1.6rem; font-weight: 800; line-height: .92; letter-spacing: -.07em; display: block; min-width: 145px; padding-block: .5rem; }
 .wordmark span { display: block; }
 .header-note { display: none; font-size: .6875rem; line-height: 1.45; }
 .menu-toggle { min-height: 44px; display: flex; align-items: center; gap: .8rem; padding: .5rem 0 .5rem .5rem; background: transparent; font-size: .875rem; }
@@ -111,6 +119,7 @@ h3 { font-weight: 600; line-height: 1.25; }
 .hero-inner { display: grid; gap: 1rem; }
 .hero-copy { min-width: 0; }
 .hero-intro { font-size: .8125rem; margin-bottom: 1.5rem; }
+.hero-brand { font-family: var(--brand); }
 .hero h1 { font-size: clamp(5.5rem, 23vw, 10rem); letter-spacing: -.025em; line-height: .86; margin-left: -.02em; }
 .hero h1 > span { display: block; }
 .hero-word { overflow: hidden; padding-block: .09em; margin-block: -.09em; }
